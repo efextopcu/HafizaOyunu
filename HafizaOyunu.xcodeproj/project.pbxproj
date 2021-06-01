@@ -20,6 +20,11 @@
 		E3720A3E26631337009BEBA0 /* shuffle.wav in Resources */ = {isa = PBXBuildFile; fileRef = E3720A3A26631337009BEBA0 /* shuffle.wav */; };
 		E3720A3F26631337009BEBA0 /* dingcorrect.wav in Resources */ = {isa = PBXBuildFile; fileRef = E3720A3B26631337009BEBA0 /* dingcorrect.wav */; };
 		E3720A4026631337009BEBA0 /* dingwrong.wav in Resources */ = {isa = PBXBuildFile; fileRef = E3720A3C26631337009BEBA0 /* dingwrong.wav */; };
+		E3CEDB1A2665B4A600399C92 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CEDB192665B4A600399C92 /* MenuViewController.swift */; };
+		E3CEDB232666098300399C92 /* fail.wav in Resources */ = {isa = PBXBuildFile; fileRef = E3CEDB212666098200399C92 /* fail.wav */; };
+		E3CEDB242666098300399C92 /* success.wav in Resources */ = {isa = PBXBuildFile; fileRef = E3CEDB222666098300399C92 /* success.wav */; };
+		E3CEDB2726661D9B00399C92 /* ScoreboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CEDB2626661D9B00399C92 /* ScoreboardViewController.swift */; };
+		E3CEDB2A26663E9500399C92 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CEDB2926663E9500399C92 /* HelpViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +43,11 @@
 		E3720A3A26631337009BEBA0 /* shuffle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shuffle.wav; sourceTree = "<group>"; };
 		E3720A3B26631337009BEBA0 /* dingcorrect.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dingcorrect.wav; sourceTree = "<group>"; };
 		E3720A3C26631337009BEBA0 /* dingwrong.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dingwrong.wav; sourceTree = "<group>"; };
+		E3CEDB192665B4A600399C92 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		E3CEDB212666098200399C92 /* fail.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = fail.wav; sourceTree = "<group>"; };
+		E3CEDB222666098300399C92 /* success.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = success.wav; sourceTree = "<group>"; };
+		E3CEDB2626661D9B00399C92 /* ScoreboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreboardViewController.swift; sourceTree = "<group>"; };
+		E3CEDB2926663E9500399C92 /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,10 +87,13 @@
 				E3720A3026626D81009BEBA0 /* Card.swift */,
 				E3720A2D26626BBC009BEBA0 /* CardModel.swift */,
 				E3720A3426627149009BEBA0 /* CardCollectionViewCell.swift */,
+				E3CEDB192665B4A600399C92 /* MenuViewController.swift */,
 				E3720A1D266262D8009BEBA0 /* Main.storyboard */,
 				E3720A20266262DA009BEBA0 /* Assets.xcassets */,
 				E3720A22266262DA009BEBA0 /* LaunchScreen.storyboard */,
 				E3720A25266262DA009BEBA0 /* Info.plist */,
+				E3CEDB2626661D9B00399C92 /* ScoreboardViewController.swift */,
+				E3CEDB2926663E9500399C92 /* HelpViewController.swift */,
 			);
 			path = HafizaOyunu;
 			sourceTree = "<group>";
@@ -88,6 +101,8 @@
 		E3720A382663130B009BEBA0 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				E3CEDB212666098200399C92 /* fail.wav */,
+				E3CEDB222666098300399C92 /* success.wav */,
 				E3720A3926631337009BEBA0 /* cardflip.wav */,
 				E3720A3B26631337009BEBA0 /* dingcorrect.wav */,
 				E3720A3C26631337009BEBA0 /* dingwrong.wav */,
@@ -153,9 +168,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3CEDB232666098300399C92 /* fail.wav in Resources */,
 				E3720A24266262DA009BEBA0 /* LaunchScreen.storyboard in Resources */,
 				E3720A4026631337009BEBA0 /* dingwrong.wav in Resources */,
 				E3720A3D26631337009BEBA0 /* cardflip.wav in Resources */,
+				E3CEDB242666098300399C92 /* success.wav in Resources */,
 				E3720A21266262DA009BEBA0 /* Assets.xcassets in Resources */,
 				E3720A1F266262D8009BEBA0 /* Main.storyboard in Resources */,
 				E3720A3E26631337009BEBA0 /* shuffle.wav in Resources */,
@@ -173,6 +190,9 @@
 				E3720A1C266262D8009BEBA0 /* ViewController.swift in Sources */,
 				E3720A2E26626BBC009BEBA0 /* CardModel.swift in Sources */,
 				E3720A3126626D81009BEBA0 /* Card.swift in Sources */,
+				E3CEDB1A2665B4A600399C92 /* MenuViewController.swift in Sources */,
+				E3CEDB2A26663E9500399C92 /* HelpViewController.swift in Sources */,
+				E3CEDB2726661D9B00399C92 /* ScoreboardViewController.swift in Sources */,
 				E3720A18266262D8009BEBA0 /* AppDelegate.swift in Sources */,
 				E3720A3526627149009BEBA0 /* CardCollectionViewCell.swift in Sources */,
 				E3720A1A266262D8009BEBA0 /* SceneDelegate.swift in Sources */,

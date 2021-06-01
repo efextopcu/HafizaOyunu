@@ -6,11 +6,15 @@
 //
 
 import UIKit
+import AVFoundation
+
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
+    @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var geriBtnOyun: UIButton!
     var model = CardModel()
     var cardArray = [Card]()
     var timer:Timer?
@@ -18,24 +22,40 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     var firstFlippedCardIndex:IndexPath?
     var secondFlippedCardIndex:IndexPath?
     var thirdFlippedCardIndex:IndexPath?
-    var level = 1
+    var level = Int()
+    var moveCount = 0
+    var audioPlayer:AVAudioPlayer?
+    var username = String()
     
+    @IBAction func geriDon(_ sender: Any) {
+        self.performSegue(withIdentifier: "backToMainMenu", sender: nil)
+    }
     override func viewDidLoad() {
         collectionView.delegate = self
         collectionView.dataSource = self
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        cardArray = model.getCards(level: 1)
+        cardArray = model.getCards(level: level)
+        let shuffle =  Bundle.main.path(forResource: "shuffle", ofType: "wav")
+        do{
+            audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: shuffle!))
+
+        }
+        catch{
+            
+        }
+        audioPlayer?.play()
         timer = Timer.init(timeInterval: 0.001, target: self, selector: #selector(timerElapsed), userInfo: nil, repeats: true)
         RunLoop.main.add(timer!, forMode: .common)
+
+        
     }
     
     @objc func timerElapsed(){
         milliseconds -= 1
         
-        let seconds = String(format: "%.2f", milliseconds/1000)
-        
-        timerLabel.text = "Kalan Zaman \(seconds)"
+        let minutes = String(format: "%.2f", (milliseconds/1000) / 60)
+        timerLabel.text = "Kalan Zaman \(minutes)"
         
         if milliseconds <= 0{
             timer?.invalidate()
@@ -76,6 +96,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     //İkinci çevirilen kart
                     
                     checkForMatches(indexPath)
+                    moveCount += 1
                 }
             }
             else if level == 2 {
@@ -90,6 +111,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 }
                 else{
                     checkForMatches3(indexPath)
+                    moveCount += 1
                 }
             }
             else if level == 3 {
@@ -109,6 +131,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 }
                 else{
                     checkForMatches4(indexPath)
+                    moveCount += 1
                 }
             }
             
@@ -128,6 +151,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             cardOne.isMatched = true
             cardTwo.isMatched = true
             
+            infoLabel.textColor = .green
+            infoLabel.text = "Bir eş buldun!"
+            
             cardOneCell?.remove()
             cardTwoCell?.remove()
             checkGameEnded()
@@ -136,6 +162,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             //Kart yanlış eşleştirildi
             cardOne.isFlipped = false
             cardTwo.isFlipped = false
+            
+            infoLabel.textColor = .red
+            infoLabel.text = "Bir eş değil!"
             
             cardOneCell?.flipBack()
             cardTwoCell?.flipBack()
@@ -163,6 +192,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             cardTwo.isMatched = true
             cardThree.isMatched = true
             
+            infoLabel.textColor = .green
+            infoLabel.text = "Bir eş buldun!"
+            
             cardOneCell?.remove()
             cardTwoCell?.remove()
             cardThreeCell?.remove()
@@ -173,6 +205,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             cardOne.isFlipped = false
             cardTwo.isFlipped = false
             cardThree.isFlipped = false
+            
+            infoLabel.textColor = .red
+            infoLabel.text = "Bir eş değil!"
             
             cardOneCell?.flipBack()
             cardTwoCell?.flipBack()
@@ -208,6 +243,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             cardThree.isMatched = true
             cardFour.isMatched = true
             
+            infoLabel.textColor = .green
+            infoLabel.text = "Bir eş buldun!"
+            
             cardOneCell?.remove()
             cardTwoCell?.remove()
             cardThreeCell?.remove()
@@ -221,6 +259,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             cardThree.isFlipped = false
             cardFour.isFlipped = false
             
+            infoLabel.textColor = .red
+            infoLabel.text = "Bir eş değil!"
             
             cardOneCell?.flipBack()
             cardTwoCell?.flipBack()
@@ -244,6 +284,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     func checkGameEnded(){
         var title = ""
         var message = ""
+        var skor = 0
         var isWon = true
         for card in cardArray{
             if card.isMatched == false{
@@ -256,7 +297,127 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 timer?.invalidate()
             }
             title = "Tebrikler!"
-            message = "Oyunu kazandınız."
+            if level == 1{
+                if moveCount == 5{
+                    skor = 100
+                    message = "Oyunu kazandınız, Level: " + String(level) + "\n Skor: " + String(skor * level)                }
+                else if moveCount == 6{
+                    skor = 90
+                    message = "Oyunu kazandınız, Level: " + String(level) + "\n Skor: " + String(skor * level)                }
+                else if moveCount == 7{
+                    skor = 80
+                    message = "Oyunu kazandınız, Level: " + String(level) + "\n Skor: " + String(skor * level)                }
+                else if moveCount == 8{
+                    skor = 70
+                    message = "Oyunu kazandınız, Level: " + String(level) + "\n Skor: " + String(skor * level)                }
+                else if moveCount == 9{
+                    skor = 60
+                    message = "Oyunu kazandınız, Level: " + String(level) + "\n Skor: " + String(skor * level)
+                }
+                else if moveCount == 10{
+                    skor = 50
+                    message = "Oyunu kazandınız, Level: " + String(level) + "\n Skor: " + String(skor * level)
+                }
+                else if moveCount == 11{
+                    skor = 40
+                    message = "Oyunu kazandınız, Level: " + String(level) + "\n Skor: " + String(skor * level)
+                }
+                else if moveCount == 12{
+                    skor = 30
+                    message = "Oyunu kazandınız, Level: " + String(level) + "\n Skor: " + String(skor * level)
+            }
+                else if moveCount == 13{
+                    skor = 20
+                    message = "Oyunu kazandınız, Level: " + String(level) + "\n Skor: " + String(skor * level)
+               }
+                else{
+                    skor = 10
+                    message = "Oyunu kazandınız, Level: " + String(level) + "\n Skor: " + String(skor * level)
+             }
+
+            }
+            else if level == 2 {
+                if moveCount == 6{
+                    skor = 100
+                    message = "Oyunu kazandınız, Level: " + String(level) + "\n Skor: " + String(skor * level)                 }
+                else if moveCount == 7{
+                    skor = 90
+                    message = "Oyunu kazandınız, Level: " + String(level) + "\n Skor: " + String(skor * level)                 }
+                else if moveCount == 8{
+                    skor = 80
+                    message = "Oyunu kazandınız, Level: " + String(level) + "\n Skor: " + String(skor * level)                 }
+                else if moveCount == 9{
+                    skor = 70
+                    message = "Oyunu kazandınız, Level: " + String(level) + "\n Skor: " + String(skor * level)                 }
+                else if moveCount == 10{
+                    skor = 60
+                    message = "Oyunu kazandınız, Level: " + String(level) + "\n Skor: " + String(skor * level)                 }
+                else if moveCount == 11{
+                    skor = 50
+                    message = "Oyunu kazandınız, Level: " + String(level) + "\n Skor: " + String(skor * level)                 }
+                else if moveCount == 12{
+                    skor = 40
+                    message = "Oyunu kazandınız, Level: " + String(level) + "\n Skor: " + String(skor * level)                 }
+                else if moveCount == 13{
+                    skor = 30
+                    message = "Oyunu kazandınız, Level: " + String(level) + "\n Skor: " + String(skor * level)                 }
+                else if moveCount == 14{
+                    skor = 20
+                    message = "Oyunu kazandınız, Level: " + String(level) + "\n Skor: " + String(skor * level)
+                }
+                else{
+                    skor = 10
+                    message = "Oyunu kazandınız, Level: " + String(level) + "\n Skor: " + String(skor * level)
+                }
+            }
+            else{
+                if moveCount == 5{
+                    skor = 100
+                    message = "Oyunu kazandınız, Level: " + String(level) + "\n Skor: " + String(skor * level)                }
+                else if moveCount == 6{
+                    skor = 90
+                    message = "Oyunu kazandınız, Level: " + String(level) + "\n Skor: " + String(skor * level)                }
+                else if moveCount == 7{
+                    skor = 80
+                    message = "Oyunu kazandınız, Level: " + String(level) + "\n Skor: " + String(skor * level)                }
+                else if moveCount == 8{
+                    skor = 70
+                    message = "Oyunu kazandınız, Level: " + String(level) + "\n Skor: " + String(skor * level)                }
+                else if moveCount == 9{
+                    skor = 60
+                    message = "Oyunu kazandınız, Level: " + String(level) + "\n Skor: " + String(skor * level)
+                }
+                else if moveCount == 10{
+                    skor = 50
+                    message = "Oyunu kazandınız, Level: " + String(level) + "\n Skor: " + String(skor * level)
+                }
+                else if moveCount == 11{
+                    skor = 40
+                    message = "Oyunu kazandınız, Level: " + String(level) + "\n Skor: " + String(skor * level)
+                }
+                else if moveCount == 12{
+                    skor = 30
+                    message = "Oyunu kazandınız, Level: " + String(level) + "\n Skor: " + String(skor * level)
+            }
+                else if moveCount == 13{
+                    skor = 20
+                    message = "Oyunu kazandınız, Level: " + String(level) + "\n Skor: " + String(skor * level)
+               }
+                else{
+                    skor = 10
+                    message = "Oyunu kazandınız, Level: " + String(level) + "\n Skor: " + String(skor * level)
+             }
+
+            }
+            let success =  Bundle.main.path(forResource: "success", ofType: "wav")
+            do{
+                audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: success!))
+
+            }
+            catch{
+                
+            }
+            audioPlayer?.play()
         }
         else{
             if milliseconds > 0
@@ -266,15 +427,25 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             else{
                 title = "Kaybettin!"
                 message = "Oyunu zamanında bitiremedin."
+                let fail =  Bundle.main.path(forResource: "fail", ofType: "wav")
+                do{
+                    audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: fail!))
+
+                }
+                catch{
+                    
+                }
+                audioPlayer?.play()
             }
         }
         showAlert(title, message)
-    }
+        }
     
     func showAlert(_ title:String, _ message:String){
         let alert  = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let alertAction = UIAlertAction(title: "Tamam", style: .default, handler: nil)
-        alert.addAction(alertAction)
+        alert.addAction(UIAlertAction(title: "Tamam", style: .default, handler: { _ in
+            self.performSegue(withIdentifier: "backToMainMenu", sender: nil)
+        }))
         present(alert, animated: true, completion: nil)
     }
     

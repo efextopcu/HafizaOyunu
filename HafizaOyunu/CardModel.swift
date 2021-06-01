@@ -37,22 +37,22 @@ class CardModel{
         else if level == 2{
             while generatedNumbersArray.count < 6 {
                 
-                let randomNumber = arc4random_uniform(13) + 1
+                let randomNumber = arc4random_uniform(6) + 1
                 
                 if generatedNumbersArray.contains(Int(randomNumber)) == false{
                     
                     generatedNumbersArray.append(Int(randomNumber))
 
                     let cardOne = Card()
-                    cardOne.imageName = "card\(randomNumber)"
+                    cardOne.imageName = "animal\(randomNumber)"
                     generatedCardsArray.append(cardOne)
                     
                     let cardTwo = Card()
-                    cardTwo.imageName = "card\(randomNumber)"
+                    cardTwo.imageName = "animal\(randomNumber)"
                     generatedCardsArray.append(cardTwo)
                     
                     let cardThree = Card()
-                    cardThree.imageName = "card\(randomNumber)"
+                    cardThree.imageName = "animal\(randomNumber)"
                     generatedCardsArray.append(cardThree)
                 }
                 
@@ -61,26 +61,26 @@ class CardModel{
         else if level == 3{
             while generatedNumbersArray.count < 5 {
                 
-                let randomNumber = arc4random_uniform(13) + 1
+                let randomNumber = arc4random_uniform(5) + 1
                 
                 if generatedNumbersArray.contains(Int(randomNumber)) == false{
                     
                     generatedNumbersArray.append(Int(randomNumber))
 
                     let cardOne = Card()
-                    cardOne.imageName = "card\(randomNumber)"
+                    cardOne.imageName = "ball\(randomNumber)"
                     generatedCardsArray.append(cardOne)
                     
                     let cardTwo = Card()
-                    cardTwo.imageName = "card\(randomNumber)"
+                    cardTwo.imageName = "ball\(randomNumber)"
                     generatedCardsArray.append(cardTwo)
                     
                     let cardThree = Card()
-                    cardThree.imageName = "card\(randomNumber)"
+                    cardThree.imageName = "ball\(randomNumber)"
                     generatedCardsArray.append(cardThree)
                     
                     let cardFour = Card()
-                    cardFour.imageName = "card\(randomNumber)"
+                    cardFour.imageName = "ball\(randomNumber)"
                     generatedCardsArray.append(cardFour)
                 }
                 
